@@ -55,16 +55,19 @@ class _HomePageState extends State<HomePage> {
           return WordCard(
             title: titles[index],
             discription: descriptions[index],
+            onDelete: () {
+              setState(() {
+                {
+                  titles.removeAt(index);
+                  descriptions.removeAt(index);
+                }
+              });
+            },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => addNewCard(context),
-        //{ Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const NewCard()),
-        // );}
-
         backgroundColor: Colors.black,
         child: const Icon(
           color: Colors.white,

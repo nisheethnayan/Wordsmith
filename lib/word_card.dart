@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class WordCard extends StatefulWidget {
   final String title;
   final String discription;
-  const WordCard({super.key, required this.title, required this.discription});
+  final VoidCallback onDelete;
+  const WordCard(
+      {super.key,
+      required this.title,
+      required this.discription,
+      required this.onDelete});
 
   @override
   State<WordCard> createState() => _WordCardState();
@@ -44,6 +49,10 @@ class _WordCardState extends State<WordCard> {
                     ],
                   ),
                 ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: widget.onDelete,
               ),
               SizedBox(
                 width: 40,
