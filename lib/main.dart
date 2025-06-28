@@ -32,9 +32,10 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           // ···
-          titleLarge: GoogleFonts.orbitron(
+          titleLarge: GoogleFonts.anton(
+            fontWeight: FontWeight.w100,
             fontSize: 30,
-            fontStyle: FontStyle.italic,
+            fontStyle: FontStyle.normal,
           ),
           bodyLarge: GoogleFonts.urbanist(
               color: const Color.fromRGBO(213, 13, 13, 0.898),
