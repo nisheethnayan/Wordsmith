@@ -21,6 +21,11 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.black,
           brightness: Brightness.dark,
         ),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.black,
+          selectionColor: Colors.black12,
+          selectionHandleColor: Colors.black,
+        ),
         textTheme: TextTheme(
           displayLarge: const TextStyle(
             fontSize: 72,
@@ -39,7 +44,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: GoogleFonts.urbanist(),
           bodySmall: GoogleFonts.urbanist(
               color: Colors.black54,
-              fontSize: 12,
+              fontSize: 16,
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.normal),
           displaySmall: GoogleFonts.pacifico(),
