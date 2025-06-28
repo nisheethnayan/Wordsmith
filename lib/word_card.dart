@@ -78,7 +78,7 @@ class _WordCardState extends State<WordCard> {
                             ?.copyWith(color: currentColor),
                       ),
                       const SizedBox(
-                        height: 18,
+                        height: 8,
                       ),
                       Text(
                         widget.discription,

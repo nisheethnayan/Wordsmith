@@ -37,6 +37,16 @@ class MyApp extends StatelessWidget {
             fontSize: 30,
             fontStyle: FontStyle.normal,
           ),
+          titleMedium: GoogleFonts.urbanist(
+            fontWeight: FontWeight.w200,
+            fontSize: 24,
+            fontStyle: FontStyle.normal,
+          ),
+          titleSmall: GoogleFonts.pacifico(
+            fontWeight: FontWeight.w200,
+            fontSize: 24,
+            fontStyle: FontStyle.normal,
+          ),
           bodyLarge: GoogleFonts.urbanist(
               color: const Color.fromRGBO(213, 13, 13, 0.898),
               fontSize: 20,
@@ -45,7 +55,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: GoogleFonts.urbanist(),
           bodySmall: GoogleFonts.urbanist(
               color: Colors.black54,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.normal),
           displaySmall: GoogleFonts.pacifico(),

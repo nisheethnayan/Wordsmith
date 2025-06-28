@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordsmith/new_card.dart';
+import 'package:wordsmith/stats.dart';
 import 'package:wordsmith/word_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,10 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Stats()));
+            },
             icon: const Icon(
               Icons.query_stats,
               color: Colors.black,
