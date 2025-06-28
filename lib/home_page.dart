@@ -14,6 +14,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> titles = [];
   List<String> descriptions = [];
+  List<String> categories = [];
+  List<SelectedColor> colors = [];
+
+  int total = 0;
+  int newWords = 0;
+  int needRevision = 0;
+  int mastered = 0;
+
+  void _recalculateCounts() {
+    newWords = colors.where((c) => c == SelectedColor.red).length;
+    needRevision = colors.where((c) => c == SelectedColor.orange).length;
+    mastered = colors.where((c) => c == SelectedColor.green).length;
+  }
+
   void addNewCard(BuildContext context) async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
@@ -25,6 +39,10 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         titles.add(result['title']!);
         descriptions.add(result['description']!);
+        categories.add(result['category']!);
+        total = titles.length;
+        colors.add(SelectedColor.red);
+        _recalculateCounts();
       });
     }
   }
@@ -42,8 +60,16 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Stats()));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => Stats(
+                    total: total,
+                    newWords: newWords,
+                    needRevision: needRevision,
+                    mastered: mastered,
+                  ),
+                ),
+              );
             },
             icon: const Icon(
               Icons.query_stats,
@@ -59,12 +85,21 @@ class _HomePageState extends State<HomePage> {
           return WordCard(
             title: titles[index],
             discription: descriptions[index],
+            selectedColor: colors[index],
+            onColorChanged: (newColor) {
+              setState(() {
+                colors[index] = newColor;
+                _recalculateCounts();
+              });
+            },
             onDelete: () {
               setState(() {
-                {
-                  titles.removeAt(index);
-                  descriptions.removeAt(index);
-                }
+                titles.removeAt(index);
+                descriptions.removeAt(index);
+                categories.removeAt(index);
+                total = titles.length;
+                colors.removeAt(index);
+                _recalculateCounts();
               });
             },
           );

@@ -1,3 +1,4 @@
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,12 +16,14 @@ class _NewCardState extends State<NewCard> {
   void _submitData() {
     final title = _titleController.text.trim();
     final description = _descController.text.trim();
+    const category = "new";
 
     if (title.isEmpty || description.isEmpty) return;
 
     Navigator.of(context).pop({
       'title': title,
       'description': description,
+      'category': category,
     });
   }
 

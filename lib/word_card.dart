@@ -2,40 +2,21 @@ import 'package:flutter/material.dart';
 
 enum SelectedColor { red, green, orange }
 
-class WordCard extends StatefulWidget {
+class WordCard extends StatelessWidget {
   final String title;
   final String discription;
+  final SelectedColor selectedColor;
   final VoidCallback onDelete;
-  const WordCard(
-      {super.key,
-      required this.title,
-      required this.discription,
-      required this.onDelete});
+  final Function(SelectedColor) onColorChanged;
 
-  @override
-  State<WordCard> createState() => _WordCardState();
-}
-
-class _WordCardState extends State<WordCard> {
-  SelectedColor selectedColor = SelectedColor.red; // default
-
-  void onGreen() {
-    setState(() {
-      selectedColor = SelectedColor.green;
-    });
-  }
-
-  void onOrange() {
-    setState(() {
-      selectedColor = SelectedColor.orange;
-    });
-  }
-
-  void onRed() {
-    setState(() {
-      selectedColor = SelectedColor.red;
-    });
-  }
+  const WordCard({
+    super.key,
+    required this.title,
+    required this.discription,
+    required this.selectedColor,
+    required this.onDelete,
+    required this.onColorChanged,
+  });
 
   Color get currentColor {
     switch (selectedColor) {
@@ -44,9 +25,8 @@ class _WordCardState extends State<WordCard> {
       case SelectedColor.orange:
         return Colors.orange;
       case SelectedColor.red:
-        return const Color.fromARGB(255, 255, 0, 1);
       default:
-        return const Color.fromARGB(255, 255, 0, 1); // default red
+        return const Color.fromARGB(255, 255, 0, 1);
     }
   }
 
@@ -71,17 +51,15 @@ class _WordCardState extends State<WordCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.title,
+                        title,
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge
                             ?.copyWith(color: currentColor),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 8),
                       Text(
-                        widget.discription,
+                        discription,
                         style: Theme.of(context).textTheme.bodySmall,
                       )
                     ],
@@ -90,38 +68,44 @@ class _WordCardState extends State<WordCard> {
               ),
               IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: widget.onDelete,
+                onPressed: onDelete,
               ),
               SizedBox(
                 width: 40,
                 child: Column(
                   children: [
                     Expanded(
-                        child: GestureDetector(
-                      onTap: onGreen,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 60, 158, 63),
-                          borderRadius:
-                              BorderRadius.only(topRight: Radius.circular(8)),
+                      child: GestureDetector(
+                        onTap: () => onColorChanged(SelectedColor.green),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 60, 158, 63),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                            ),
+                          ),
                         ),
                       ),
-                    )),
+                    ),
                     Expanded(
-                        child: GestureDetector(
-                            onTap: onOrange,
-                            child: Container(color: Colors.orange))),
+                      child: GestureDetector(
+                        onTap: () => onColorChanged(SelectedColor.orange),
+                        child: Container(color: Colors.orange),
+                      ),
+                    ),
                     Expanded(
-                        child: GestureDetector(
-                      onTap: onRed,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(8)),
+                      child: GestureDetector(
+                        onTap: () => onColorChanged(SelectedColor.red),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(8),
+                            ),
+                          ),
                         ),
                       ),
-                    )),
+                    ),
                   ],
                 ),
               ),
