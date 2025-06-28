@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum SelectedColor { red, green, orange }
+
 class WordCard extends StatefulWidget {
   final String title;
   final String discription;
@@ -15,6 +17,39 @@ class WordCard extends StatefulWidget {
 }
 
 class _WordCardState extends State<WordCard> {
+  SelectedColor selectedColor = SelectedColor.red; // default
+
+  void onGreen() {
+    setState(() {
+      selectedColor = SelectedColor.green;
+    });
+  }
+
+  void onOrange() {
+    setState(() {
+      selectedColor = SelectedColor.orange;
+    });
+  }
+
+  void onRed() {
+    setState(() {
+      selectedColor = SelectedColor.red;
+    });
+  }
+
+  Color get currentColor {
+    switch (selectedColor) {
+      case SelectedColor.green:
+        return const Color.fromARGB(255, 60, 158, 63);
+      case SelectedColor.orange:
+        return Colors.orange;
+      case SelectedColor.red:
+        return const Color.fromARGB(255, 255, 0, 1);
+      default:
+        return const Color.fromARGB(255, 255, 0, 1); // default red
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,7 +57,7 @@ class _WordCardState extends State<WordCard> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         child: Card(
-          shadowColor: const Color.fromRGBO(213, 13, 13, 1),
+          shadowColor: currentColor,
           elevation: 10,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.elliptical(8, 8))),
@@ -37,7 +72,10 @@ class _WordCardState extends State<WordCard> {
                     children: [
                       Text(
                         widget.title,
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: currentColor),
                       ),
                       const SizedBox(
                         height: 10,
@@ -59,20 +97,29 @@ class _WordCardState extends State<WordCard> {
                 child: Column(
                   children: [
                     Expanded(
-                        child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.green, // background color
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8)), // round all edges
+                        child: GestureDetector(
+                      onTap: onGreen,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 60, 158, 63),
+                          borderRadius:
+                              BorderRadius.only(topRight: Radius.circular(8)),
+                        ),
                       ),
                     )),
-                    Expanded(child: Container(color: Colors.orange)),
                     Expanded(
-                        child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.red, // background color
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(8)), // round all edges
+                        child: GestureDetector(
+                            onTap: onOrange,
+                            child: Container(color: Colors.orange))),
+                    Expanded(
+                        child: GestureDetector(
+                      onTap: onRed,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(8)),
+                        ),
                       ),
                     )),
                   ],
